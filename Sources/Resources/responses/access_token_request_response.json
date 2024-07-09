@@ -1,0 +1,7 @@
+{
+  "access_token": "my.access.token",
+  "expires_in": 3600,
+  "c_nonce": "c_nonce",
+  "c_nonce_expires_in": 7200,
+  "scope": "a.b.c"
+}
