@@ -99,7 +99,7 @@ public extension SingleCredential {
               ]
           case "com.dentsusoken.vecrea.UnifiedID":
               claimsSection = [
-                  "com.dentsusoken.vecrea.UnifiedID": [
+                  "com.dentsusoken.vecrea": [
                       "type": [],
                       "issuer": [],
                       "service": [],
