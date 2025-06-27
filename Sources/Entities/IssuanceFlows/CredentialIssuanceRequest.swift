@@ -87,45 +87,38 @@ public extension SingleCredential {
           return JSON(dictionary.filter { $0.value != nil })
           
         } else {
+          // ToDo: Add docType "com.dentsusoken.vecrea.UnifiedID" claims here
+          var claimsSection: [String: Any] = [:]
+          switch credential.docType {
+          case "org.iso.18013.5.1.mDL":
+              claimsSection = [
+                  "org.iso.18013.5.1": [
+                      "given_name": [],
+                      "document_number": []
+                  ]
+              ]
+          case "com.dentsusoken.vecrea.UnifiedID":
+              claimsSection = [
+                  "com.dentsusoken.vecrea.UnifiedID": [
+                      "type": [],
+                      "issuer": [],
+                      "service": [],
+                      "user_id": [],
+                      "unified_id": [],
+                      "issue_date": [],
+                      "expiry_date": []
+                  ]
+              ]
+          default:
+              // fallback, or throw
+              break
+          }
+
           let dictionary = [
             "format": MsoMdocFormat.FORMAT,
             "doctype": credential.docType,
             "proof": credential.proof != nil ? (try? credential.proof.toDictionary()) : nil,
-            "claims": [
-                    "org.iso.18013.5.1": [
-//                        "family_name": [],
-                        "given_name": [],
-//                        "birth_date": [],
-//                        "issue_date": [],
-//                        "expiry_date": [],
-//                        "issuing_country": [],
-//                        "issuing_authority": [],
-                        "document_number": [],
-//                        "portrait": [],
-//                        "driving_privileges": [],
-//                        "un_distinguishing_sign": [],
-//                        "administrative_number": [],
-//                        "sex": [],
-//                        "height": [],
-//                        "weight": [],
-//                        "eye_colour": [],
-//                        "hair_colour": [],
-//                        "birth_place": [],
-//                        "resident_address": [],
-//                        "portrait_capture_date": [],
-//                        "age_in_years": [],
-//                        "age_birth_year": [],
-//                        "issuing_jurisdiction": [],
-//                        "nationality": [],
-//                        "resident_city": [],
-//                        "resident_state": [],
-//                        "resident_postal_code": [],
-//                        "resident_country": [],
-//                        "family_name_national_character": [],
-//                        "given_name_national_character": [],
-//                        "signature_usual_mark": []
-                    ]
-            ]
+            "claims": claimsSection
           ] as [String : Any?]
           return JSON(dictionary.filter { $0.value != nil })
         }
