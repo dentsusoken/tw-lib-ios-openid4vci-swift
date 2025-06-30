@@ -87,7 +87,6 @@ public extension SingleCredential {
           return JSON(dictionary.filter { $0.value != nil })
           
         } else {
-          // ToDo: Add docType "com.dentsusoken.vecrea.UnifiedID" claims here
           var claimsSection: [String: Any] = [:]
           switch credential.docType {
           case "org.iso.18013.5.1.mDL":
